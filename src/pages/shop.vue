@@ -130,29 +130,31 @@ export default {
       if (this.allall == 1) {
         this.allall = 2;
         document.getElementById("all").src = allnew;
-        this.shoplist.map((item) => {
-          item.status = this.allall;
-        });
       } else {
         this.allall = 1;
         document.getElementById("all").src = allold;
-        this.shoplist.forEach((item) => {
-          item.status = this.allall;
-        });
       }
+      this.shoplist.map((item) => {
+        item.status = this.allall;
+      });
     },
     one(index) {
       if (this.shoplist[index].status == 1) {
         this.shoplist[index].status = 2;
         document.getElementsByClassName("one")[index].src = this.allnew;
-      } else if (this.shoplist[index].status == 2) {
+      } else {
         this.shoplist[index].status = 1;
         document.getElementsByClassName("one")[index].src = this.allold;
       }
-      this.allall = this.shoplist.every((item) => {
-        item.status;
-      });
-      console.log(this.shoplist[index].status);
+      if (
+        this.shoplist.some((item) => {
+          item.status == 1;
+        })
+      ) {
+        this.allall = 1;
+      } else {
+        this.allall = 2;
+      }
     },
     jian(index, id) {
       if (this.shoplist[index].num < 2) {
